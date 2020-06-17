@@ -13,8 +13,8 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
-COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
-COPY settings.xml /usr/share/maven/conf/settings.xml
+COPY 3/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
+COPY 3/settings.xml /usr/share/maven/conf/settings.xml
 
 VOLUME "$USER_HOME_DIR/.m2"
 
