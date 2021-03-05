@@ -11,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        versions: [8, 11]
     env:
       repo: "govpf/maven"
     steps:
@@ -31,15 +34,24 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./3/Dockerfile
+        file: ./3/jdk-${{ matrix.versions }}/Dockerfile
         platforms: linux/amd64
         pull: true
         push: true
         tags: |
-          ${{ env.repo }}:3-jdk-8
-          ${{ env.repo }}:3.6-jdk-8
+          ${{ env.repo }}:3-jdk-${{ matrix.versions }}
+          ${{ env.repo }}:3.6-jdk-${{ matrix.versions }}
+    -
+      name: Build and push latest
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./3/jdk-11/Dockerfile
+        platforms: linux/amd64
+        pull: true
+        push: true
+        tags: |
           ${{ env.repo }}:latest
-
     - name: Update repo description
       uses: peter-evans/dockerhub-description@v2
       with:

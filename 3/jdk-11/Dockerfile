@@ -1,4 +1,4 @@
-FROM govpf/openjdk:8-jdk-debian
+FROM govpf/openjdk:11-jdk-debian
 
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
@@ -13,8 +13,8 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
-COPY 3/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
-COPY 3/settings.xml /usr/share/maven/conf/settings.xml
+COPY 3/jdk-11/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
+COPY 3/jdk-11/settings.xml /usr/share/maven/conf/settings.xml
 
 VOLUME "$USER_HOME_DIR/.m2"
 
