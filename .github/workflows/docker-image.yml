@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        versions: [7, 8, 11]
+        versions: [7, 8, 11, 17]
     env:
       repo: "govpf/maven"
     steps:
@@ -37,7 +37,6 @@ jobs:
         push: true
         tags: |
           ${{ env.repo }}:3-jdk-${{ matrix.versions }}
-          ${{ env.repo }}:3.6-jdk-${{ matrix.versions }}
 
     - name: Build and push latest
       uses: docker/build-push-action@v2.7.0
