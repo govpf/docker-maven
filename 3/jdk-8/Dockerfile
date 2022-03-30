@@ -3,7 +3,7 @@ FROM govpf/openjdk:8-jdk-debian
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
 
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl unzip
 
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
