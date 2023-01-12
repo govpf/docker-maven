@@ -1,6 +1,6 @@
 FROM govpf/openjdk:17-jdk-debian
 
-ARG MAVEN_VERSION=3.8.6
+ARG MAVEN_VERSION=3.8.7
 ARG USER_HOME_DIR="/root"
 
 RUN apt-get update && apt-get install -y curl unzip
