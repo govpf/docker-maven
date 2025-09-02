@@ -1,6 +1,6 @@
 FROM govpf/openjdk:21-jdk-alpine
 
-ARG MAVEN_VERSION=3.9.6
+ARG MAVEN_VERSION=3.9.9
 ARG USER_HOME_DIR="/root"
 
 RUN apk add -U --no-cache curl unzip bash && apk upgrade --no-cache
