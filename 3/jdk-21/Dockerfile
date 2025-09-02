@@ -1,12 +1,12 @@
 FROM govpf/openjdk:21-jdk-alpine
 
-ARG MAVEN_VERSION=3.9.9
+ARG MAVEN_VERSION=3.9.6
 ARG USER_HOME_DIR="/root"
 
 RUN apk add -U --no-cache curl unzip bash && apk upgrade --no-cache
 
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL https://dlcdn.apache.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
+  && curl -fsSL https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
     | tar -xzC /usr/share/maven --strip-components=1 \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
