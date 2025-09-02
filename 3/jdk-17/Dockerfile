@@ -5,13 +5,6 @@ ARG USER_HOME_DIR="/root"
 
 RUN apt-get update && apt-get install -y curl unzip
 
-# Fix dépôt Debian si besoin
-RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list \
-    && sed -i '/security.debian.org/d' /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends curl unzip \
-    && rm -rf /var/lib/apt/lists/*
-
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
     | tar -xzC /usr/share/maven --strip-components=1 \
