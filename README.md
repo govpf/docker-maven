@@ -3,4 +3,4 @@
 Ce dépôt contient les recettes permettant de générer les images Maven du Gouvernement de la Polynésie Française.
 
 # Last push
-10/12/2025 14:50
+27/01/2026 14h48
