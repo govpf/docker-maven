@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
-          xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <servers>
+        <server>
+            <id>gitlab-maven</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Private-Token</name>
+                        <value>${env.CI_JOB_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+    </servers>
+
     <profiles>
         <profile>
             <repositories>
@@ -216,7 +231,72 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
+        <!-- ============================================================
+             PROFIL GITLAB : remplace Artifactory
+             Activé par : MAVEN_PROFILE=gitlab
+             ============================================================ -->
+        <profile>
+            <id>gitlab</id>
+            <activation>
+                <property>
+                    <name>env.MAVEN_PROFILE</name>
+                    <value>gitlab</value>
+                </property>
+            </activation>
+
+            <repositories>
+                <!-- 1. Maven Central -->
+                <repository>
+                    <id>central</id>
+                    <name>Maven Central</name>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+
+                <!-- 2. GitLab : releases internes -->
+                <repository>
+                    <id>gitlab-maven</id>
+                    <name>GitLab Registry</name>
+                    <url>https://gitlab.gov.pf/api/v4/groups/2388/-/packages/maven</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>gitlab-maven</id>
+                    <url>https://gitlab.gov.pf/api/v4/groups/2388/-/packages/maven</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
     </profiles>
+
     <activeProfiles>
         <activeProfile>artifactory</activeProfile>
     </activeProfiles>
