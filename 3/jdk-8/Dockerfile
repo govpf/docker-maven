@@ -1,5 +1,8 @@
 FROM govpf/openjdk:8-jdk-debian
 
+LABEL govpf.fromimage="govpf/openjdk:8-jdk-debian"
+LABEL govpf.category="build"
+
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
 
