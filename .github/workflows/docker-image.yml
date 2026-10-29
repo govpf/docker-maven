@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        versions: [8, 11, 17, 21]
+        versions: [8, 11, 17, 21, 26]
     env:
       repo: "govpf/maven"
     steps:

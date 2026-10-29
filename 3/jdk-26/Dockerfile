@@ -1,0 +1,32 @@
+
+FROM eclipse-temurin:26-jdk
+
+LABEL govpf.fromimage="eclipse-temurin:26-jdk"
+LABEL govpf.category="build"
+
+ARG MAVEN_VERSION=3.9.16
+ARG USER_HOME_DIR="/root"
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends curl unzip bash \
+  && apt-get upgrade -y \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
+  && curl -fsSL \
+    "https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" \
+    | tar -xzC /usr/share/maven --strip-components=1 \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+
+ENV MAVEN_HOME=/usr/share/maven
+ENV MAVEN_CONFIG="${USER_HOME_DIR}/.m2"
+
+COPY 3/jdk-26/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
+COPY 3/jdk-26/settings.xml /usr/share/maven/conf/settings.xml
+
+RUN chmod +x /usr/local/bin/mvn-entrypoint.sh
+
+VOLUME "${USER_HOME_DIR}/.m2"
+
+ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
+CMD ["mvn"]
